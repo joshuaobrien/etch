@@ -4,10 +4,13 @@ var hexDigits = new Array
 $(document).ready(function() {
 		var counter = 0;
 	for (var i = 0; i < 16; i++) {
+		$('<div class="plain" id="'+i+'"> </div>').appendTo('#container');
 		for (var j = 0; j < 16; j++) {
 			$('<div class="plain"> </div>').appendTo('#container');
 			counter++;
 		}
+
+	reset(13,13);
 	}
 
 	$(".plain").hover(
@@ -42,20 +45,25 @@ function shadeColor2(color, percent) {
 }
 
 function reset(x, y) {
+	var counter = 0;
 	$(".plain").each(
 		function(){
 			$(this).remove();
 		});
 
+
 	for (var i = 0; i < x; i++) {		
 		for (var j = 0; j < y; j++) {
-			$('<div class="plain"> </div>').appendTo('#container');
+			$('<div class="plain"></div>').appendTo('#container');
+			counter = counter + 1;
 		}
 	}
 
+
+
 	$(".plain").each(function() {
-		$(this).css("height", (960/y) + "px");
-		$(this).css("width", (960/x) + "px");
+		$(this).css("height", 960/y + "px");
+		$(this).css("width", 960/x + "px");
 	});
 
 $(".plain").hover(
@@ -76,6 +84,11 @@ $(".plain").hover(
 
 
 };
+
+function nearestMultiple(value, roundTo) {
+	return Math.floor(value /roundTo) * roundTo;
+}
+
 function shadeColor(color, percent) {
 
     var R = parseInt(color.substring(1,3),16);

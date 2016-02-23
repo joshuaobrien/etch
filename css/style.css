@@ -1,7 +1,15 @@
 #container {
-	background-color: blue;
+	background-color: red;
 	height: 960px;
 	width: 960px;
+}
+
+.row {
+	width: 960px;
+	height: 60px;
+	background-color: green;
+	float: left;
+	display: table-cell;
 }
 
 .plain {
@@ -19,5 +27,11 @@
 }
 
 #button {
+	width: 960px;
 	text-align: center;
+}
+
+#reset{
+	width: 100px;
+	height: 40px;
 }
