@@ -1,3 +1,6 @@
+var hexDigits = new Array
+        ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"); 
+
 $(document).ready(function() {
 		var counter = 0;
 	for (var i = 0; i < 16; i++) {
@@ -11,23 +14,16 @@ $(document).ready(function() {
 	function(){
 		var percent = 20;
 		var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-		//alert(randomColor);
 
 		if(($(this).css("background-color")) != ("rgb(255, 0, 0)"))
 		{
-			
-			var currentOpacity = $(this).css("opacity");
-			$(this).css("opacity", currentOpacity-0.10);
+			var darkerShade = shadeColor(rgb2hex($(this).css("background-color")), -10);
+			$(this).css("background-color", darkerShade)
 		}
 		else
 		{
 			$(this).css("background-color", randomColor);
-		}
-
-		//$(this).addClass("hovered");
-
-		
-		
+		}	
 	});
 
 	$("#button").click(
@@ -64,27 +60,50 @@ function reset(x, y) {
 
 $(".plain").hover(
 	function(){
+		var percent = 20;
 		var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
-		//alert(randomColor);
 
 		if(($(this).css("background-color")) != ("rgb(255, 0, 0)"))
 		{
-			
-			var currentOpacity = $(this).css("opacity");
-			$(this).css("opacity", currentOpacity-0.5);
+			var darkerShade = shadeColor(rgb2hex($(this).css("background-color")), -10);
+			$(this).css("background-color", darkerShade)
 		}
 		else
 		{
 			$(this).css("background-color", randomColor);
-		}
-
-		//$(this).addClass("hovered");
-
-		
-		
+		}	
 	});
 
 
 };
+function shadeColor(color, percent) {
+
+    var R = parseInt(color.substring(1,3),16);
+    var G = parseInt(color.substring(3,5),16);
+    var B = parseInt(color.substring(5,7),16);
+
+    R = parseInt(R * (100 + percent) / 100);
+    G = parseInt(G * (100 + percent) / 100);
+    B = parseInt(B * (100 + percent) / 100);
+
+    R = (R<255)?R:255;  
+    G = (G<255)?G:255;  
+    B = (B<255)?B:255;  
+
+    var RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
+    var GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
+    var BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+
+    return "#"+RR+GG+BB;
+}
+
+function rgb2hex(rgb) {
+ rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+ return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+}
+
+function hex(x) {
+  return isNaN(x) ? "00" : hexDigits[(x - x % 16) / 16] + hexDigits[x % 16];
+ }
 
 
